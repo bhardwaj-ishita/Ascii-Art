@@ -14,3 +14,5 @@ A few steps were taken into account while building it.
 As the image processing library I tries using ImageJ. 
 
 For further study you might take a look at Robert Heaton's website. 
+
+PS The work is still in progress. 
