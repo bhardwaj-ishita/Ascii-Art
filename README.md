@@ -11,7 +11,7 @@ A few steps were taken into account while building it.
 4. Convert brightness numbers to ASCII characters
 5. Print your ASCII art!
 
-As the image processing library I tries using ImageJ. 
+As the image processing library I tried using ImageJ. 
 
 For further study you might take a look at Robert Heaton's website. 
 
