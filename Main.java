@@ -8,37 +8,64 @@ import javax.imageio.ImageIO; //To perform the image read write operation. This 
 
 import java.awt.Color;
 
+import static com.company.Greyscale.greyScale;
+import static com.company.PixelArray.FastRGB;
+import static com.company.PixelArray.GetRGB;
+
 public class Main {
+
+    public static void resize(String inputImagePath,
+                       String outputImagePath, int scaledWidth, int scaledHeight)
+            throws IOException {
+        // reads input image
+        File inputFile = new File(inputImagePath);
+        BufferedImage inputImage = ImageIO.read(inputFile);
+
+        // creates output image
+        BufferedImage outputImage = new BufferedImage(scaledWidth,
+                scaledHeight, inputImage.getType());
+
+        // scales the input image to the output image
+        Graphics2D g2d = outputImage.createGraphics();
+        g2d.drawImage(inputImage, 0, 0, scaledWidth, scaledHeight, null);
+        g2d.dispose();
+
+        // extracts extension of output file
+        String formatName = outputImagePath.substring(outputImagePath
+                .lastIndexOf(".") + 1);
+
+        // writes to output file
+        ImageIO.write(outputImage, formatName, new File(outputImagePath));
+    }
 
     public static void main(String[] args) {
 
-        int width = 640; //width of the image
-        int height = 480; //height of the image
-
-        //For storing image in RAM
         BufferedImage image = null;
+        //For storing image in RAM
 
         //READ IMAGE
         try
         {
             //image file path
-            File input_file = new File("D:\\ascii-pineapple.jpg");
+            File input_file = new File("D:\\Ishita\\Github\\Ascii Art\\out\\res\\images\\sun.jpg");
 
             /* create an object of BufferedImage type and
                pass as parameter the width, height and image int type.TYPE_INT_ARGB
                means that we are representing the Alpha, Red, Green and Blue component
                of the image pixel using 8 bit integer value. */
-            image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+
+            image = new BufferedImage(640, 480 , BufferedImage.TYPE_INT_ARGB);
 
             // Reading input file
             image = ImageIO.read(input_file);
-
+            resize("D:\\Ishita\\Github\\Ascii Art\\out\\res\\images\\sun.jpg","D:\\Ishita\\Github\\Ascii Art\\out\\res\\images\\out1.jpg", 4, 3);
             System.out.println("Reading complete.");
         }
         catch(IOException e)
         {
             System.out.println("Error: " + e);
         }
+
 
         //STORING THE PIXEL INFORMATION
         int[][] pixel = new int[image.getWidth()][image.getHeight()];
@@ -54,48 +81,35 @@ public class Main {
                 int g = (pixel[x][y] >> 8) & 0xFF;
                 int b = (pixel[x][y] & 0xFF);
 
-                // Normalize and gamma correct:
-                //float rr = (float) Math.pow(r / 255.0, 2.2);
-                //float gg = (float) Math.pow(g / 255.0, 2.2);
-                //float bb = (float) Math.pow(b / 255.0, 2.2);
-
                 // Calculate average:
-                float average = ((r + g + b)/3);
+                float average = ((r + g + b) / 3);
 
-                // Gamma compand and rescale to byte range:
-                int grayLevel = (int) (255.0 * Math.pow(average, 1.0 / 2.2));
-                int gray = (grayLevel << 16) + (grayLevel << 8) + grayLevel;
-                image.setRGB(x, y, gray);
-
-                pixel[x][y] = gray;
+                pixel[x][y] = (int) average;
             }
         }
+
+        String ascii = "`^\",:;Il!i~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$";
+
 
         for (int y = 0; y < image.getHeight(); y++) {
             for (int x = 0; x < image.getWidth(); x++) {
-                System.out.println(pixel[x][y]);
+                System.out.print(ascii.charAt(pixel[x][y]/4));
+                pixel[x][y] = ascii.charAt(pixel[x][y]/4);
             }
+            System.out.println();
         }
-
+        
         // WRITE IMAGE
-        try
-        {
+        try {
             // Output file path
-            File output_file = new File("D:\\Out.jpg");
+            File output_file = new File("D:\\Ishita\\Github\\Ascii Art\\out\\res\\images\\out1.jpg");
 
             // Writing to file taking type and path as
             ImageIO.write(image, "jpg", output_file);
 
             System.out.println("Writing complete.");
+        } catch (IOException e) {
+            System.out.println("Error: " + e);
         }
-        catch(IOException e)
-        {
-            System.out.println("Error: "+e);
-        }
-
-
-
-
-
     }
 }
