@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage; //To hold the image we create the BufferedI
 import javax.imageio.ImageIO; //To perform the image read write operation. This class has static methods to read and write an image.
 
 import java.awt.Color;
+import java.util.Arrays;
 
 import static com.company.Greyscale.greyScale;
 import static com.company.PixelArray.FastRGB;
@@ -47,7 +48,7 @@ public class Main {
         try
         {
             //image file path
-            File input_file = new File("D:\\Ishita\\Github\\Ascii Art\\out\\res\\images\\sun.jpg");
+            File input_file = new File("D:\\Ishita\\Github\\Ascii Art\\out\\res\\images\\ascii-pineapple.jpg");
 
             /* create an object of BufferedImage type and
                pass as parameter the width, height and image int type.TYPE_INT_ARGB
@@ -58,7 +59,7 @@ public class Main {
 
             // Reading input file
             image = ImageIO.read(input_file);
-            resize("D:\\Ishita\\Github\\Ascii Art\\out\\res\\images\\sun.jpg","D:\\Ishita\\Github\\Ascii Art\\out\\res\\images\\out1.jpg", 4, 3);
+            //resize("D:\\Ishita\\Github\\Ascii Art\\out\\res\\images\\ascii-pineapple.jpg","D:\\Ishita\\Github\\Ascii Art\\out\\res\\images\\out.jpg", 4, 3);
             System.out.println("Reading complete.");
         }
         catch(IOException e)
@@ -90,22 +91,38 @@ public class Main {
 
         String ascii = "`^\",:;Il!i~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$";
 
-
+        char[][] result = new char[image.getWidth()][image.getHeight()];
         for (int y = 0; y < image.getHeight(); y++) {
             for (int x = 0; x < image.getWidth(); x++) {
-                System.out.print(ascii.charAt(pixel[x][y]/4));
-                pixel[x][y] = ascii.charAt(pixel[x][y]/4);
+                //System.out.print(ascii.charAt(pixel[x][y]/4));
+                result[x][y] = ascii.charAt(pixel[x][y]/4);
             }
-            System.out.println();
+            //System.out.println();
         }
+
+        //System.out.println(String.valueOf(result));
 
         // WRITE IMAGE
         try {
             // Output file path
-            File output_file = new File("D:\\Ishita\\Github\\Ascii Art\\out\\res\\images\\out1.jpg");
+            File output_file = new File("D:\\Ishita\\Github\\Ascii Art\\out\\res\\images\\out.jpg");
 
             // Writing to file taking type and path as
-            ImageIO.write(image, "jpg", output_file);
+
+            BufferedImage bufferedImage = new BufferedImage(640, 480,
+                    BufferedImage.TYPE_INT_RGB);
+            Graphics graphics = bufferedImage.getGraphics();
+            graphics.setColor(Color.LIGHT_GRAY);
+            graphics.fillRect(0, 0, 640, 480);
+            graphics.setColor(Color.BLACK);
+            graphics.setFont(new Font("Arial", Font.PLAIN, 8));
+            for(int i = 0; i < image.getWidth(); i++) {
+                graphics.drawChars(result[i],0,image.getHeight(),10, 25);
+                graphics.drawString("\n", 10, 25);
+            }
+
+            //graphics.drawString(String.valueOf(result),10, 25);
+            ImageIO.write(bufferedImage, "jpg", output_file);
 
             System.out.println("Writing complete.");
         } catch (IOException e) {
