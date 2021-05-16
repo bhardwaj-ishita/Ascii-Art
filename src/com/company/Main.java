@@ -94,10 +94,10 @@ public class Main {
         char[][] result = new char[image.getWidth()][image.getHeight()];
         for (int y = 0; y < image.getHeight(); y++) {
             for (int x = 0; x < image.getWidth(); x++) {
-                //System.out.print(ascii.charAt(pixel[x][y]/4));
+                System.out.print(ascii.charAt(pixel[x][y]/4));
                 result[x][y] = ascii.charAt(pixel[x][y]/4);
             }
-            //System.out.println();
+            System.out.println();
         }
 
         //System.out.println(String.valueOf(result));
@@ -109,16 +109,15 @@ public class Main {
 
             // Writing to file taking type and path as
 
-            BufferedImage bufferedImage = new BufferedImage(640, 480,
+            BufferedImage bufferedImage = new BufferedImage(3000, 2500,
                     BufferedImage.TYPE_INT_RGB);
             Graphics graphics = bufferedImage.getGraphics();
             graphics.setColor(Color.LIGHT_GRAY);
-            graphics.fillRect(0, 0, 640, 480);
+            graphics.fillRect(0, 0, 3000, 2500);
             graphics.setColor(Color.BLACK);
             graphics.setFont(new Font("Arial", Font.PLAIN, 8));
             for(int i = 0; i < image.getWidth(); i++) {
-                graphics.drawChars(result[i],0,image.getHeight(),10, 25);
-                graphics.drawString("\n", 10, 25);
+                graphics.drawChars(result[i],0,image.getHeight(),10, 25 + (i*10));
             }
 
             //graphics.drawString(String.valueOf(result),10, 25);
