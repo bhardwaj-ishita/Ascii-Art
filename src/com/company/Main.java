@@ -48,7 +48,7 @@ public class Main {
         try
         {
             //image file path
-            File input_file = new File("D:\\Ishita\\Github\\Ascii Art\\out\\res\\images\\ascii-pineapple.jpg");
+            File input_file = new File("D:\\Ishita\\Github\\Ascii Art\\out\\res\\images\\peace.jpg");
 
             /* create an object of BufferedImage type and
                pass as parameter the width, height and image int type.TYPE_INT_ARGB
@@ -105,7 +105,7 @@ public class Main {
         // WRITE IMAGE
         try {
             // Output file path
-            File output_file = new File("D:\\Ishita\\Github\\Ascii Art\\out\\res\\images\\out.jpg");
+            File output_file = new File("D:\\Ishita\\Github\\Ascii Art\\out\\res\\images\\out-peace.jpg");
 
             // Writing to file taking type and path as
 
