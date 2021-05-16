@@ -109,13 +109,13 @@ public class Main {
 
             // Writing to file taking type and path as
 
-            BufferedImage bufferedImage = new BufferedImage(3000, 2500,
+            BufferedImage bufferedImage = new BufferedImage(3000, 3000,
                     BufferedImage.TYPE_INT_RGB);
             Graphics graphics = bufferedImage.getGraphics();
             graphics.setColor(Color.LIGHT_GRAY);
-            graphics.fillRect(0, 0, 3000, 2500);
+            graphics.fillRect(0, 0, 3000, 3000);
             graphics.setColor(Color.BLACK);
-            graphics.setFont(new Font("Arial", Font.PLAIN, 8));
+            graphics.setFont(new Font("Courier New", Font.PLAIN, 8));
             for(int i = 0; i < image.getWidth(); i++) {
                 graphics.drawChars(result[i],0,image.getHeight(),10, 25 + (i*10));
             }
